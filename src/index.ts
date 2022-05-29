@@ -1,10 +1,10 @@
-import { setOutput } from '@actions/core'
+import { info } from '@actions/core'
 import { getOptions } from './options'
 
 async function run() {
-  const { a, b } = getOptions()
-  const sum = Number(a) + Number(b)
-  setOutput('result', sum)
+  const { branch, action } = getOptions()
+  info(`Branch: ${branch}`)
+  info(`Action: ${action}`)
 }
 
 run()

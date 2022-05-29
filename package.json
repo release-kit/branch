@@ -1,8 +1,8 @@
 {
-  "name": "@your-scope/github-action",
+  "name": "@release-kit/branch",
   "version": "0.0.0-set-by-ci",
-  "description": "Github Action Description",
-  "author": "Your Name",
+  "description": "Simplify the work with git branches",
+  "author": "Evgeny Zakharov",
   "main": "dist/index.js",
   "exports": "./dist/index.js",
   "module": "./dist/index.mjs",
@@ -10,7 +10,7 @@
   "files": [
     "dist/*"
   ],
-  "repository": "git@github.com:your-scope/github-action.git",
+  "repository": "git@github.com:release-kit/branch.git",
   "license": "MIT",
   "publishConfig": {
     "access": "public"
@@ -29,6 +29,7 @@
   },
   "devDependencies": {
     "@rollup/plugin-commonjs": "^22.0.0",
+    "@rollup/plugin-node-resolve": "^13.3.0",
     "@types/jest": "^27.5.1",
     "@types/semver": "^7.3.9",
     "esbuild": "^0.14.39",

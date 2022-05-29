@@ -1,17 +1,17 @@
-name: 'Github Action'
-description: 'Github Action Description'
+name: 'Branch Action'
+description: 'Simplify the work with git branches'
 
 inputs:
-  a:
-    description: 'a'
+  branch:
+    description: 'A git branch name'
     required: true
-  b:
-    description: 'b'
+  action:
+    description: 'An action to execute'
     required: true
 
 outputs:
-  result:
-    description: 'Sum of A and B'
+  exists:
+    description: 'Branch existence'
 
 runs:
   using: 'node12'

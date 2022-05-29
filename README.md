@@ -7,41 +7,47 @@
 - [Maintenance](#maintenance)
   - [Regular flow](#regular-flow)
   - [Conventions](#conventions)
-- [Using template](#using-template)
-  - [Replace everything](#replace-everything)
-  - [Add secrets](#add-secrets)
-  - [Set up branch protection](#set-up-branch-protection)
-  - [The last step](#the-last-step)
 
 ## Usage
 
-Add A to B:
+Check branch existence:
 
 ```yml
 steps:
-  - name: Sum up
-    id: sum
-    uses: your-scope/github-action@v1
+  - uses: actions/checkout@v3
+
+  - id: branch
+    uses: release-kit/branch@v1
     with:
-      a: 2
-      b: 2
+      branch: 'release'
+      action: 'check-existence'
+
+  - run: echo "${{ steps.branch.output.exists }}"
 ```
 
-Use result:
+Checkout branch or create when not exists:
 
 ```yml
-- name: Echo sum
-  run: echo "${{ steps.sum.outputs.result }}"
+steps:
+  - uses: actions/checkout@v3
+
+  - id: branch
+    uses: release-kit/branch@v1
+    with:
+      branch: 'release'
+      action: 'checkout-or-create'
 ```
 
 ## Options
 
-- `a` - first number
-- `b` - second number
+- `branch` - a git branch name
+- `action` - an action to perform with branch
+  - `check-existence`
+  - `checkout-or-create`
 
 ## Outputs
 
-- `result` - sum of A and B
+- `exists` - branch existence
 
 ## Contributing
 
@@ -83,35 +89,3 @@ Then, the `update-major-tag` workflow sets an additional tag for your major vers
 - Should have human-readable name, for example: "Add a TODO list feature"
 - Should describe changes
 - Should have correct labels
-
-## Using template
-
-### Replace everything
-
-1. Replace all `your-scope/github-action` entries with your full action name
-2. Replace all `github-action` entries with your action name
-3. Replace all `Github Action Description` entries with your action description
-4. Replace all `Your Name` entries with your name
-
-### Add secrets
-
-- `FULL_ACCESS_GITHUB_TOKEN` if you plan to set up [the branch protection](#add-branch-protection)
-
-### Set up branch protection
-
-1. Go to `Settings` > `Branches` > `Add rule`
-2. Specify `main` branch
-3. Enable the following options:
-   - Require a pull request before merging (without approvals)
-   - Require status checks to pass before merging (you need to run them at least once to appear):
-     - `test-and-build`
-     - `pr-labeler`
-   - Include administrators
-   - Allow force pushes
-4. [Create a new Personal Access Token](https://github.com/settings/tokens/new) with `repo` permissions
-5. Use it as a new Secret named `FULL_ACCESS_GITHUB_TOKEN`  
-   It's needed to bypass the branch protection on CI runs
-
-### The last step
-
-Remove **Using Template** section from README (don't forget about Navigation links)
