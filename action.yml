@@ -1,0 +1,22 @@
+name: 'Github Action'
+description: 'Github Action Description'
+
+inputs:
+  a:
+    description: 'a'
+    required: true
+  b:
+    description: 'b'
+    required: true
+
+outputs:
+  result:
+    description: 'Sum of A and B'
+
+runs:
+  using: 'node12'
+  main: 'dist/index.js'
+
+branding:
+  icon: 'play'
+  color: 'gray-dark'

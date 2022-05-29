@@ -1,0 +1,50 @@
+name: Update Major Tag
+
+on:
+  release:
+    types: [published]
+
+jobs:
+  update-major-tag:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Setup git
+        run: |
+          git config --global user.name "GitHub Actions Bot"
+          git config --global user.email "<>"
+
+      - name: Checkout to tag
+        uses: actions/checkout@v3
+        with:
+          ref: ${{ github.event.release.tag_name }}
+          fetch-depth: 0
+
+      - name: Parse semver string
+        id: version 
+        uses: release-kit/semver@v1
+
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
+      - name: Update major tag
+        run: git tag -f v${{ steps.version.outputs.major }}
+
+      - name: Push to protected branch
+        uses: CasperWA/push-protected@v2
+        env:
+          TOKEN: ${{ secrets.FULL_ACCESS_GITHUB_TOKEN }}
+        if: ${{ env.TOKEN != '' }}
+        with:
+          token: ${{ secrets.FULL_ACCESS_GITHUB_TOKEN }}
+          branch: 'main'
+          tags: true
+          force: true
+          unprotect_reviews: true
+  
+      - name: Push to unprotected branch
+        env:
+          TOKEN: ${{ secrets.FULL_ACCESS_GITHUB_TOKEN }}
+        if: ${{ env.TOKEN == '' }}
+        run: git push --tags --force

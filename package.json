@@ -1,0 +1,47 @@
+{
+  "name": "@your-scope/github-action",
+  "version": "0.0.0-set-by-ci",
+  "description": "Github Action Description",
+  "author": "Your Name",
+  "main": "dist/index.js",
+  "exports": "./dist/index.js",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
+  "files": [
+    "dist/*"
+  ],
+  "repository": "git@github.com:your-scope/github-action.git",
+  "license": "MIT",
+  "publishConfig": {
+    "access": "public"
+  },
+  "scripts": {
+    "build": "rollup -c",
+    "dev": "yarn build --watch",
+    "test": "jest",
+    "test:watch": "yarn test --watchAll",
+    "lint": "eslint --ext .ts,.tsx src",
+    "lint:fix": "yarn lint --fix",
+    "prepare": "husky install"
+  },
+  "dependencies": {
+    "@actions/core": "^1.8.2"
+  },
+  "devDependencies": {
+    "@rollup/plugin-commonjs": "^22.0.0",
+    "@types/jest": "^27.5.1",
+    "@types/semver": "^7.3.9",
+    "esbuild": "^0.14.39",
+    "eslint-kit": "^3.0.2",
+    "husky": "^8.0.1",
+    "jest": "^28.1.0",
+    "jest-serializer-path": "^0.1.15",
+    "rollup": "^2.73.0",
+    "rollup-plugin-bundle-size": "^1.0.3",
+    "rollup-plugin-dts": "^4.2.1",
+    "rollup-plugin-esbuild": "^4.9.1",
+    "rollup-plugin-terser": "^7.0.2",
+    "ts-jest": "^28.0.2",
+    "typescript": "^4.6.4"
+  }
+}
